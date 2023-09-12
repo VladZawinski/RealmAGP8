@@ -1,9 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
+    id 'io.realm.kotlin'
 }
-apply plugin: 'kotlin-kapt'
-apply plugin: 'realm-android'
 
 android {
     namespace 'com.zuker.realmtest'
@@ -46,6 +47,9 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    kapt {
+        correctErrorTypes true
+    }
 }
 
 dependencies {
@@ -58,8 +62,11 @@ dependencies {
     implementation 'androidx.compose.ui:ui-graphics'
     implementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.compose.material3:material3'
-//    implementation 'io.realm.kotlin:library-base:1.10.0'
-//    implementation 'io.realm.kotlin:library-sync:1.10.0'
+    implementation 'io.realm.kotlin:library-base:1.11.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

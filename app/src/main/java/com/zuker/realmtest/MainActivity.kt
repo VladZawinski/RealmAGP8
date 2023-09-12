@@ -17,8 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.zuker.realmtest.ui.theme.RealmTestTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +40,9 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RealmScreen() {
-    val viewModel = RealmViewModel()
+fun RealmScreen(
+    viewModel: RealmViewModel = hiltViewModel(),
+) {
     val state by viewModel.state.collectAsState()
     Scaffold() { paddings ->
         LazyColumn(modifier = Modifier.padding(paddings)) {
@@ -48,7 +52,7 @@ fun RealmScreen() {
                 }
             }
             items(state.persons) {
-                Text(text = "Name: ${it.name} Age: ${it.age} ")
+                Text(text = "Name: ${it.name}")
             }
         }
     }
